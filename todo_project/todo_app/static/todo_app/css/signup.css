@@ -1,0 +1,105 @@
+/* Basic Reset */
+html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container to center the form */
+.container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Signup Form */
+.signup-form h2 {
+   margin: 5px;
+    font-size: 20px;
+    color: #333;
+}
+
+.signup-form form {
+    margin-bottom: 10px;
+}
+
+.signup-form form p {
+    margin: 5px;
+    font-size: 15px;
+}
+
+.signup-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #18751b;
+    color: #fff;
+    border:solid 2px #111111;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.signup-form button:hover {
+    background-color: #45a049;
+}
+
+.signup-form p{
+    margin: 5px;
+}
+/* Styling for the links */
+.signup-form p a {
+    text-decoration: none;
+    color: #0d4e0f;
+    font-weight: bold;
+}
+ul{
+    font-size: 15px;
+    margin: 5px;
+    padding: 5px;
+    color: rgb(35, 91, 211);
+}
+span{
+    color: rgb(35, 91, 211);
+}
+.signup-form p a:hover {
+    text-decoration: underline;
+}
+
+/* Styling the form fields */
+.signup-form form input[type="text"],
+.signup-form form input[type="email"],
+.signup-form form input[type="password"] {
+    width: 90%;
+    padding: 12px;
+    margin: 5px;
+    border: 1px solid #bbafaf;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Form input focus effect */
+.signup-form form input[type="text"]:focus,
+.signup-form form input[type="email"]:focus,
+.signup-form form input[type="password"]:focus {
+    border-color: #131613;
+    outline: none;
+}

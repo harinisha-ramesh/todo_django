@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'todo_app',
 ]
 
+LOGIN_URL = '/login/'  # Redirect for unauthenticated users
+LOGIN_REDIRECT_URL = '/todo/'  # Redirect after successful login
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -76,7 +79,7 @@ WSGI_APPLICATION = 'todo_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'todo_django',
         'USER' : 'root',
         'PASSWORD': 'nisha@2003',
@@ -120,7 +123,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+# STATICFILES_DIRS = [
+#     BASE_DIR / "static",  # This points to the 'static' folder in the root of your project
+# ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
