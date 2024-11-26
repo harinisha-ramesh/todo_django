@@ -1,16 +1,13 @@
 
-html {
+
+
+html,body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;

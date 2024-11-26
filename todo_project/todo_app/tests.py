@@ -184,10 +184,43 @@ class LogoutTests(TestCase):
 
     def test_logout_button_redirects_to_login(self):
         """Test that clicking the logout button logs the user out and redirects to login page"""
+        response = self.client.post(reverse('logout')) 
+        self.assertRedirects(response, reverse('login')) 
+
         response = self.client.get(reverse('todo_list'))
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Logout')
-        response = self.client.get(reverse('logout')) 
-        self.assertRedirects(response, reverse('login'))
+        self.assertRedirects(response, f"{reverse('login')}?next={reverse('todo_list')}")
+
+class TodoTabTests(TestCase):
+    def setUp(self):
+        """Create a test user and log them in"""
+        fake = Faker()
+        self.username = fake.user_name()
+        self.password = fake.password()
+        self.user = User.objects.create_user(username=self.username, password=self.password)
+        self.client.login(username=self.username, password=self.password)
+
+    def test_tabs_are_displayed(self):
+        """Test that the tabs 'All', 'In-Progress', 'Completed' are displayed"""
         response = self.client.get(reverse('todo_list'))
-        self.assertRedirects(response, reverse('login'))
+        self.assertContains(response, "All")
+        self.assertContains(response, "In-Progress")
+        self.assertContains(response, "Completed")
+
+    def test_filtering_by_tabs(self):
+        """Test that tasks can be filtered by status (All, In-Progress, Completed)"""
+        fake = Faker()
+        Todo.objects.create(user=self.user, task_name=fake.sentence(), status="In-Progress")
+        Todo.objects.create(user=self.user, task_name=fake.sentence(), status="Completed")
+
+        # Test "All" tab
+        response = self.client.get(reverse('todo_list'))
+        self.assertContains(response, "In-Progress")
+        self.assertContains(response, "Completed")
+        # Test "In-Progress" tab
+        response = self.client.get(reverse('todo_list') + '?status=In-Progress')
+        self.assertContains(response, "In-Progress")
+        self.assertNotContains(response, "Completed")
+        # Test "Completed" tab
+        response = self.client.get(reverse('todo_list') + '?status=Completed')
+        self.assertContains(response, "Completed")
+        self.assertNotContains(response, "In-Progress")               

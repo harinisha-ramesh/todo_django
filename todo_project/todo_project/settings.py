@@ -40,8 +40,9 @@ INSTALLED_APPS = [
     'todo_app',
 ]
 
-LOGIN_URL = '/login/'  # Redirect for unauthenticated users
-LOGIN_REDIRECT_URL = '/todo/'  # Redirect after successful login
+LOGIN_URL = '/login/' 
+LOGIN_REDIRECT_URL = '/todo/' 
+LOGOUT_REDIRECT_URL = '/login/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView,LogoutView
 from django.urls import reverse_lazy
 from django.contrib.auth import login
 from django.views import View
@@ -13,10 +13,18 @@ class CustomLoginView(LoginView):
     redirect_authenticated_user = True 
     success_url = reverse_lazy('todo_list')
 
+class CustomLogoutView(LogoutView):
+    next_page = reverse_lazy('login')
+    http_method_names = ['get', 'post']
+
 @login_required
 def todo_list(request):
     """A todo list  page that requires login to view"""
-    todos = Todo.objects.filter(user=request.user)
+    status_filter = request.GET.get('status', None)  
+    if status_filter:
+        todos = Todo.objects.filter(user=request.user, status=status_filter)
+    else:
+        todos = Todo.objects.filter(user=request.user)
     if request.method == 'POST':
         form = TodoForm(request.POST)
         if form.is_valid():

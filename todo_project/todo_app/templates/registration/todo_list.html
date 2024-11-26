@@ -1,38 +1,62 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'todo_app/css/todo_list.css' %}">
     <title>Todo List</title>
 </head>
 <body>
-    <h1>Welcome to your Todo List!</h1>
-    
-    <div style="text-align: right;">
-        <a href="{% url 'logout' %}"><button>Logout</button></a>
+    <div class="welcome-container">
+        <h1>Welcome to your Todo List, {{ user.username }}!</h1>
     </div>
-
-    <div style="text-align: center;">
-        <h3>Add a New Task</h3>
-        <form method="POST">
+    
+    <div class="logout-container">
+        <form method="POST" action="{% url 'logout' %}">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Add Task</button>
+            <button type="submit" class="logout-button">Logout</button>
         </form>
     </div>
+    
+    <div class="tabs-container">
+        <button class="tabs-button"><a href="?status=All" class="tab-link">All</a></button>
+        <button class="tabs-button"><a href="?status=In-Progress" class="tab-link">In-Progress</a></button>
+        <button class="tabs-button"><a href="?status=Completed" class="tab-link">Completed</a></button>
+    </div>
 
-    <h2>Your Tasks:</h2>
-    {% if todos %}
-        <ul>
-            {% for todo in todos %}
-                <li>
-                    <strong>{{ todo.task_name }}</strong> - {{ todo.status }}
-                    <p>{{ todo.description }}</p>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>You have no tasks. <a href="#">Create a new task</a></p>
-    {% endif %}
+    <div class="flex-container">
+        <!-- Left Column: Task Form -->
+        <div class="task-form-container">
+            <h3>Add a New Task</h3>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.task_name.label_tag }}
+                    {{ form.task_name }}
+                </div>
+                <div class="form-group">
+                    {{ form.description.label_tag }}
+                    {{ form.description }}
+                </div>
+                <button type="submit" class="add-task-button">Add Task</button>
+            </form>
+        </div>
+        <div class="task-list-container">
+            <h2>Your Tasks:</h2>
+            {% if todos %}
+                <ul>
+                    {% for todo in todos %}
+                        <li>
+                            <strong>{{ todo.task_name }}</strong> - {{ todo.status }}
+                            <p>{{ todo.description }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>You have no tasks.</p>
+            {% endif %}
+        </div>
+    </div>
 </body>
 </html>

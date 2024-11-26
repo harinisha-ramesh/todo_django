@@ -11,7 +11,7 @@
     <div class="login-container">
         <div class="login-form">
             <h2>Login Page</h2>
-            <form>
+            <form method="POST" action="{% url 'login' %}">
                 {% csrf_token %}
                 <div class="form-group">
                     {{ form.username.label }}
