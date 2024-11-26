@@ -22,6 +22,7 @@ def todo_list(request):
     """A todo list  page that requires login to view"""
     status_filter = request.GET.get('status', None)  
     if status_filter:
+        status_filter = status_filter.strip().capitalize()
         todos = Todo.objects.filter(user=request.user, status=status_filter)
     else:
         todos = Todo.objects.filter(user=request.user)
