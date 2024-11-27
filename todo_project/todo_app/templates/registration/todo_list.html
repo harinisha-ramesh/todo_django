@@ -48,13 +48,21 @@
                 <ul>
                     {% for todo in todos %}
                         <li>
-                            <strong>{{ todo.task_name }}</strong>
-                            <p>{{ todo.description }}</p>
+                            <form method="POST" action="{% url 'todo_list' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="task_id" value="{{ todo.id }}">
+                                <label>
+                                    <input type="checkbox" name="toggle_task" onchange="this.form.submit()" {% if todo.completed %}checked{% endif %}>
+                                    <strong>{{ todo.task_name }}</strong>
+                                </label>
+                                <p>{{ todo.description }}</p>
+                                <p>Status: {{ todo.status }}</p>
+                            </form>
                         </li>
                     {% endfor %}
                 </ul>
             {% else %}
-                <p>You have no tasks.</p>
+                <h3 class="no-task-message">You have no tasks.</h3>
             {% endif %}
         </div>
     </div>

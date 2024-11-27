@@ -168,3 +168,8 @@ li {
 .tabs-button:hover {
     background-color: #0056b3;
 }
+
+.no-task-message{
+    text-align: center;
+    color: rgb(80, 78, 78);
+}
